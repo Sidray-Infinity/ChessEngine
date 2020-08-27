@@ -34,7 +34,7 @@ def create_model():
     #model.summary()
 
 
-    model.load_weights("TrainedNet/model-weights.h5")
+    model.load_weights("model-weights.h5")
 
     return model
 
