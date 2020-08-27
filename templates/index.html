@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stupid Chess Engine</title>
+    <link rel="stylesheet" type="text/css" href="static/chessboard.min.css">
+    <script src="static/jquery.min.js"></script>
+    <script src="static/chessboard.min.js"></script>
+
+    
+</head>
+<body>
+    <div id="board" style="width: 400px"></div>
+    <button id="new_game">New Game</button>
+    <script type="text/javascript">
+
+        var board = ChessBoard("board", {
+                        position: 'start',
+                        draggable: true,
+                        onDrop: onDrop
+                    });
+
+        var files = {"a": 0, "b": 1, "c": 2, "d": 3, "e": 4, "f": 5, "g": 6, "h": 7};
+        function get_square(sq) {
+            return 8*(parseInt(sq.charAt(1)) - 1) + files[sq.charAt(0)];
+        }
+
+        function onDrop(source, target, piece, newPos, oldPos, orientation) {
+
+            if (source == target)
+                return;
+
+            var promote = piece.toLowerCase().charAt(1) == 'p' && parseInt(target.charAt(1)) == 8;
+
+            $.get('/turn', {
+                    'from': get_square(source),
+                    'to' : get_square(target),
+                    'promote': promote,
+                },
+                function(r) {
+                    console.log(r);
+                    if(r.includes("checkmate")) {
+                        document.getElementById("p1").innerHTML = "Checkmate";
+                    }
+                    if (r.includes("invalidMove")) {
+                        board.position(oldPos);
+                        return;
+                    }
+                    else {
+                        board.position(r);
+                    }
+                }
+            );
+        }
+
+        $('#new_game').on('click', function () {
+            $.get("/new_game", {}, function(r) {
+                board.position(r);
+            });
+        })
+
+
+    </script>
+</body>
+</html>
