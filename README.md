@@ -44,6 +44,7 @@ A simple chess AI.
 ## To do:
 ----
 - Improve the engine by introducing minimax (partially).
+- [IMP] Fix the bugs on Heroku.
 <br>
 
 ## References
