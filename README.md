@@ -48,4 +48,4 @@ A simple chess AI.
 <br>
 
 ## References
-- <a href="https://pdfs.semanticscholar.org/28a9/fff7208256de548c273e96487d750137c31d.pdf?source=post_page---------------------------"> Stanford paper</a>
+- <a href="http://cs231n.stanford.edu/reports/2015/pdfs/ConvChess.pdf" target="_blank"> Stanford paper</a>
